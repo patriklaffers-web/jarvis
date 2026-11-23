@@ -42,7 +42,7 @@ def najdi_mesto(nazov):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--mesto", default=os.environ.get("RANO_MESTO", "Bratislava"))
+    p.add_argument("--mesto", default=os.environ.get("RANO_MESTO", "Banská Bystrica"))
     a = p.parse_args()
 
     now = datetime.now(ZoneInfo(TZ))

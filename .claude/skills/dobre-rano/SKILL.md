@@ -1,6 +1,6 @@
 ---
 name: dobre-rano
-description: Ranný prehľad po slovensky – aktuálny čas, počasie vonku, predpoveď na celý deň a najdôležitejšie správy zo Slovenska a zo sveta. Použi vždy, keď používateľ povie "dobré ráno" / "dobre rano" / "dobré ráno, Claude", alebo zavolá /dobre-rano.
+description: Ranný prehľad po slovensky – aktuálny čas, počasie vonku, predpoveď na celý deň a najdôležitejšie správy zo Slovenska a zo sveta. Použi len vtedy, keď používateľ povie "Dobré ráno, Claude" (aj bez diakritiky), alebo zavolá /dobre-rano.
 ---
 
 # Dobré ráno
@@ -18,7 +18,7 @@ Začni napr.: „Dobré ráno! Je pondelok 23. novembra, 7:15.“
 ## 2. Počasie teraz
 Z výstupu skriptu: aktuálna teplota, pocitová teplota, obloha, vietor.
 Ak skript nevráti počasie (napr. blokovaná sieť), použi WebSearch
-(„počasie Bratislava dnes“) – nikdy si počasie nevymýšľaj; keď ho nezistíš, povedz to.
+(„počasie Banská Bystrica dnes“) – nikdy si počasie nevymýšľaj; keď ho nezistíš, povedz to.
 
 ## 3. Ako bude cez deň
 Max/min teplota, pravdepodobnosť zrážok, ako sa počasie zmení
@@ -40,6 +40,6 @@ Ak nič výnimočné, túto časť pokojne vynechaj.
 - Uvádzaj len overené informácie z dnešného vyhľadávania, nie z pamäti.
 
 ## Nastavenie mesta
-Predvolené mesto je Bratislava. Iné mesto: premenné prostredia
+Predvolené mesto je Banská Bystrica. Iné mesto: premenné prostredia
 `RANO_MESTO`, `RANO_LAT`, `RANO_LON`, alebo ak používateľ v pozdrave spomenie mesto,
 spusti skript s `--mesto "Košice"` (súradnice si skript nájde sám).
