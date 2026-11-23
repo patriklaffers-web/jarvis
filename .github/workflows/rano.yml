@@ -20,12 +20,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Vygeneruj text
         run: python3 siri/generuj.py > /tmp/rano.txt && cat /tmp/rano.txt
+      - name: Vygeneruj zvuk (slovenský hlas)
+        run: |
+          pip install -q edge-tts
+          edge-tts --voice sk-SK-ViktoriaNeural --rate=-5% \
+            --file /tmp/rano.txt --write-media /tmp/rano.mp3
+          ls -l /tmp/rano.mp3
       - name: Ulož do vetvy "rano"
         run: |
           cd "$(mktemp -d)"
           git init -q -b rano
           cp /tmp/rano.txt rano.txt
-          git add rano.txt
+          cp /tmp/rano.mp3 rano.mp3
+          git add rano.txt rano.mp3
           git -c user.name="jarvis-bot" -c user.email="jarvis-bot@users.noreply.github.com" \
             commit -qm "Ranný prehľad"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" rano
