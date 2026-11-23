@@ -1,0 +1,31 @@
+name: Ranný prehľad pre Siri
+
+on:
+  schedule:
+    # každých 20 minút medzi 4:00 a 10:00 slovenského času (UTC+1/+2)
+    - cron: "*/20 2-8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rano
+  cancel-in-progress: true
+
+jobs:
+  generuj:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vygeneruj text
+        run: python3 siri/generuj.py > /tmp/rano.txt && cat /tmp/rano.txt
+      - name: Ulož do vetvy "rano"
+        run: |
+          cd "$(mktemp -d)"
+          git init -q -b rano
+          cp /tmp/rano.txt rano.txt
+          git add rano.txt
+          git -c user.name="jarvis-bot" -c user.email="jarvis-bot@users.noreply.github.com" \
+            commit -qm "Ranný prehľad"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" rano
