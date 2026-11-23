@@ -1,0 +1,26 @@
+name: Nahrávky s časom (jednorazovo)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vygeneruj 1440 nahrávok
+        run: |
+          pip install -q edge-tts
+          python3 siri/cas.py /tmp/cas
+          ls /tmp/cas | wc -l
+      - name: Ulož do vetvy "cas"
+        run: |
+          cd /tmp/cas
+          git init -q -b cas
+          git add .
+          git -c user.name="jarvis-bot" -c user.email="jarvis-bot@users.noreply.github.com" \
+            commit -qm "Nahrávky s časom"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" cas

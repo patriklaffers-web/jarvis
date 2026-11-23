@@ -100,7 +100,7 @@ def spravy():
 
 
 def main():
-    casti = ["Dobré ráno!"]
+    casti = []
     for f in (pocasie, spravy):
         try:
             casti.append(f())
